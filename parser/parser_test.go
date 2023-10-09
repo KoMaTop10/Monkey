@@ -1,8 +1,9 @@
 package parser 
 import (
 	"testing"
-	"github.com/KoMaTop10/Mokey/ast"
-	"github.com/KoMaTop10/Mokey/lexer"
+	"github.com/KoMaTop10/Monkey/ast"
+	"github.com/KoMaTop10/Monkey/lexer"
+
 )
 
 func TestLetStatements(t *testing.T) {
@@ -11,7 +12,7 @@ func TestLetStatements(t *testing.T) {
 	let y = 10
 	let foobar = 1234123
 	`
-	l := lexer.New(input)
+	l := lexer.NewLexer(input)
 	p := New(l)
 	program := p.ParseProgram()
 	if program == nil {
@@ -37,7 +38,7 @@ func TestLetStatements(t *testing.T) {
 
 func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	if s.TokenLiteral() != "let" {
-		t.Errorf("s.TokenLiteral not 'let'. got = %q",s.TokenLiterral())
+		t.Errorf("s.TokenLiteral not 'let'. got = %q",s.TokenLiteral())
 		return false
 	}
 
