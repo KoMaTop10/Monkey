@@ -12,7 +12,7 @@ func TestLetStatements(t *testing.T) {
 	let y = 10
 	let foobar = 1234123
 	`
-	l := lexer.NewLexer(input)
+	l := lexer.New(input)
 	p := New(l)
 	program := p.ParseProgram()
 	if program == nil {
@@ -49,12 +49,13 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	}
 
 	if letStmt.Name.Value != name {
-		t.Errorf("letAStmt.Name.Value not '%s'. got = %s",name,letStmt.Name.Value)
+		t.Errorf("letStmt.Name.Value not '%s'. got = %s",name,letStmt.Name.Value)
 		return false
 	}
 
 	if letStmt.Name.TokenLiteral() != name {
-		t.Errorf("letStmt.Name.TokenLiteral() not '%s'. got = %s",name, letStmt.Name.TokenLiteral())
+		t.Errorf("letStmt.Name.TokenLiteral() not '%s'. got = %s",name,
+				  letStmt.Name.TokenLiteral())
 		return false
 	}
 

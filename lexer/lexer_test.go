@@ -10,9 +10,10 @@ func TestNextToken(t *testing.T) {
 	input := `let five = 5;
 let ten = 10;
 
-let add = fn(x, y){
-	x + y;
+let add = fn(x, y) {
+  x + y;
 };
+
 let result = add(five, ten);
 !-/*5;
 5 < 10 > 5;
@@ -25,11 +26,6 @@ if (5 < 10) {
 
 10 == 10;
 10 != 9;
-"foobar";
-"hoge hoge";
-[1, 2];
-{"hello": "world", 1: "one"};
-macro(x, y) {x + y;};
 `
 
 	tests := []struct {
@@ -37,39 +33,39 @@ macro(x, y) {x + y;};
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
-		{token.IDENTIFIER, "five"},
+		{token.IDENT, "five"},
 		{token.ASSIGN, "="},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
-		{token.IDENTIFIER, "ten"},
+		{token.IDENT, "ten"},
 		{token.ASSIGN, "="},
 		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
-		{token.IDENTIFIER, "add"},
+		{token.IDENT, "add"},
 		{token.ASSIGN, "="},
 		{token.FUNCTION, "fn"},
 		{token.LPAREN, "("},
-		{token.IDENTIFIER, "x"},
+		{token.IDENT, "x"},
 		{token.COMMA, ","},
-		{token.IDENTIFIER, "y"},
+		{token.IDENT, "y"},
 		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
-		{token.IDENTIFIER, "x"},
+		{token.IDENT, "x"},
 		{token.PLUS, "+"},
-		{token.IDENTIFIER, "y"},
+		{token.IDENT, "y"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
-		{token.IDENTIFIER, "result"},
+		{token.IDENT, "result"},
 		{token.ASSIGN, "="},
-		{token.IDENTIFIER, "add"},
+		{token.IDENT, "add"},
 		{token.LPAREN, "("},
-		{token.IDENTIFIER, "five"},
+		{token.IDENT, "five"},
 		{token.COMMA, ","},
-		{token.IDENTIFIER, "ten"},
+		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
 		{token.BANG, "!"},
@@ -109,54 +105,22 @@ macro(x, y) {x + y;};
 		{token.NOT_EQ, "!="},
 		{token.INT, "9"},
 		{token.SEMICOLON, ";"},
-		{token.STRING, "foobar"},
-		{token.SEMICOLON, ";"},
-		{token.STRING, "hoge hoge"},
-		{token.SEMICOLON, ";"},
-		{token.LBRACKET, "["},
-		{token.INT, "1"},
-		{token.COMMA, ","},
-		{token.INT, "2"},
-		{token.RBRACKET, "]"},
-		{token.SEMICOLON, ";"},
-		{token.LBRACE, "{"},
-		{token.STRING, "hello"},
-		{token.COLON, ":"},
-		{token.STRING, "world"},
-		{token.COMMA, ","},
-		{token.INT, "1"},
-		{token.COLON, ":"},
-		{token.STRING, "one"},
-		{token.RBRACE, "}"},
-		{token.SEMICOLON, ";"},
-		{token.MACRO, "macro"},
-		{token.LPAREN, "("},
-		{token.IDENTIFIER, "x"},
-		{token.COMMA, ","},
-		{token.IDENTIFIER, "y"},
-		{token.RPAREN, ")"},
-		{token.LBRACE, "{"},
-		{token.IDENTIFIER, "x"},
-		{token.PLUS, "+"},
-		{token.IDENTIFIER, "y"},
-		{token.SEMICOLON, ";"},
-		{token.RBRACE, "}"},
-		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}
 
-	l := NewLexer(input)
+	l := New(input)
 
 	for i, tt := range tests {
-		nToken := l.NextToken()
+		tok := l.NextToken()
 
-		if nToken.Type != tt.expectedType {
-			t.Fatalf("tests[%d] - Token:%v  TokenType Wrong. expected=%q, got=%q", i, nToken, tt.expectedType, nToken.Type)
+		if tok.Type != tt.expectedType {
+			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q",
+				i, tt.expectedType, tok.Type)
 		}
 
-		if nToken.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] - Token:%v  Literal Wrong. expected=%q, got=%q", i, nToken, tt.expectedLiteral, nToken.Literal)
+		if tok.Literal != tt.expectedLiteral {
+			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
+				i, tt.expectedLiteral, tok.Literal)
 		}
 	}
-
 }
