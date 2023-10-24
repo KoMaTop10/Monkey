@@ -1,10 +1,10 @@
 package main
 
 import  (
+	"github.com/KoMaTop10/Monkey/repl"
 	"fmt"
 	"os"
 	"os/user"
-	"github.com/KoMaTop10/Monkey/repl"
 )
 
 func main() {
