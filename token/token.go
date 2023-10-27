@@ -45,6 +45,8 @@ const (
 	RETURN   = "RETURN"
 
 	STRING = "STRING"
+
+	COLON = ":"
 )
 
 type Token struct {
