@@ -1,1 +1,5 @@
-小町です
+let koma = 10
+
+let yuki = 10 + 20
+
+yuki
