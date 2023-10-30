@@ -47,6 +47,30 @@ func Start(in io.Reader, out io.Writer) {
 
 }
 
+func domonkeyfile(in string, out io.Writer) {
+	env := object.NewEnvironment()
+
+	script := in
+	l := lexer.New(script)
+	p := parser.New(l)
+
+	program := p.ParseProgram()
+
+	if len(p.Errors()) != 0 {
+		printParserErrors(out,p.Errors())
+		fmt.Printf("Error:")
+	}
+
+	evaluated := evaluator.Eval(program, env)
+
+	if evaluated != nil {
+		io.WriteString(out, evaluated.Inspect())
+		io.WriteString(out, "\n")
+	}
+
+}
+
+
 const MONKEY_FACE = `
             __,__
    .--.  .-"     "-.  .--.
