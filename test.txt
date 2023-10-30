@@ -2,4 +2,9 @@ let koma = 10
 
 let yuki = 10 + 20
 
-yuki
+puts(yuki)
+
+if (yuki > 20) {
+    puts("komachi")
+    "Komachi" + " " + "Yuki"
+}
