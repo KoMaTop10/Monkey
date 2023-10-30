@@ -39,15 +39,13 @@ func Start(in io.Reader, out io.Writer) {
 		if evaluated != nil {
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out,"\n")
-		} else {
-			io.WriteString(out,MONKEY_FACE)
 		}
 		
 	}
 
 }
 
-func domonkeyfile(in string, out io.Writer) {
+func DoMonkeyFile(in string, out io.Writer) {
 	env := object.NewEnvironment()
 
 	script := in

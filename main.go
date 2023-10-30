@@ -13,7 +13,7 @@ func main() {
 		if err != nil {
 			fmt.Println("Err")
 		}
-		doScriptFile(string(fileContent))
+		repl.DoMonkeyFile(string(fileContent),os.Stdout)
 		os.Exit(0)
 	}
 	user, err := user.Current()
@@ -24,11 +24,4 @@ func main() {
 		user.Username)
 	fmt.Printf("Feel free to type in commands\n")
 	repl.Start(os.Stdin,os.Stdout)
-}
-
-func doScriptFile(fileContent string) {
-	fmt.Printf(fileContent)
-	fmt.Printf("\n")
-
-	repl.domonkeyfile(fileContent, os.Stdout)
 }
