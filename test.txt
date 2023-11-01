@@ -4,7 +4,14 @@ let yuki = 10 + 20
 
 puts(yuki)
 
+
+let double = fn(x) {
+    return x * x;
+};
+
+
 if (yuki > 20) {
     puts("komachi")
-    "Komachi" + " " + "Yuki"
+    puts("Komachi" + " " + "Yuki")
+    puts(double(10))
 }
