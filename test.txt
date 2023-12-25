@@ -1,17 +1,1 @@
-let koma = 10
-
-let yuki = 10 + 20
-
-puts(yuki)
-
-
-let double = fn(x) {
-    return x * x;
-};
-
-
-if (yuki > 20) {
-    puts("komachi")
-    puts("Komachi" + " " + "Yuki")
-    puts(double(10))
-}
+小町です
