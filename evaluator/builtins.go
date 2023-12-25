@@ -2,6 +2,7 @@ package evaluator
 
 import (
 	"fmt"
+	"os"
 	"github.com/KoMaTop10/Monkey/object" 
 )
 
@@ -113,6 +114,60 @@ var builtins = map[string]*object.Builtin{
 			for _,arg := range args {
 				fmt.Println(arg.Inspect())
 			}
+
+			return NULL
+		},
+	},
+
+	"read": {
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 1 {
+				return newError("wrong number of arguments. got = %d, want = 1",len(args))
+			}
+
+			if args[0].Type() != object.STRING_OBJ {
+				return newError("argument to `first` must be String, got %s",args[0].Type())
+			}
+
+			f, err := os.Open(args[0].Inspect())
+
+			data := make([]byte, 1024)
+			count, err := f.Read(data)
+			if err != nil {
+				fmt.Println(err)
+				fmt.Println("fail to read file")
+				return NULL
+			}
+
+			return &object.String{Value: string(data[:count])}
+		},
+	},
+
+	"write": {
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 2 {
+				return newError("wrong number of arguments. got = %d. want = 2",len(args))
+			}
+
+			if args[0].Type() != object.STRING_OBJ {
+				return newError("argument to `first` must be String. got %s", args[0].Type())
+			}
+			
+			if args[1].Type() != object.STRING_OBJ {
+				return newError("argument to `second` must be String. got %s", args[0].Type())
+			}
+
+			f, err := os.Create(args[0].Inspect())
+			
+			write_data := []byte(args[1].Inspect())
+			count, err := f.Write(write_data)
+
+			if err != nil {
+				fmt.Println(err)
+				fmt.Println("fail to write file")
+			}
+
+			fmt.Printf("write %d bytes\n", count)
 
 			return NULL
 		},
