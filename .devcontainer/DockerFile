@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/devcontainers/go:1-1.21-bullseye
+
+WORKDIR /monkey
+
+COPY . .
+
+RUN cat ./.monkey >> ~/.bash_profile 
+RUN sudo ln -si /workspaces/monkey/monkey /usr/local/bin/monkey
+RUN chmod 777 ~/workspaces/monkey/monkey
