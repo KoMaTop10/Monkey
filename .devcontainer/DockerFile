@@ -4,6 +4,6 @@ WORKDIR /monkey
 
 COPY . .
 
-RUN cat ./.monkey >> ~/.bash_profile 
+# monkeyコマンドにパスを通す
+RUN echo "export PATH=$HOME/workspaces/monkey/moneky:$PATH" >> ~/.bash_profile
 RUN sudo ln -si /workspaces/monkey/monkey /usr/local/bin/monkey
-RUN chmod 777 ~/workspaces/monkey/monkey
