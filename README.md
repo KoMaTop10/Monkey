@@ -12,8 +12,8 @@ go run main.go
 ```
 
 # 環境
-Go:1.21
-Docker:24.0.6
+- Go:1.21
+- Docker:24.0.6
 
 # 追加機能
 
